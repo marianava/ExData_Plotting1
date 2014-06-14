@@ -1,0 +1,10 @@
+epc <- read.table("household_power_consumption.txt",header=T,na.strings="?",sep=";")
+dh <- paste(as.character(epc$Date),as.character(epc$Time))
+epc$date.time <- strptime(dh,"%d/%m/%Y %H:%M:%S")
+epc$Date <- as.Date(epc$Date,format="%d/%m/%Y")
+epc2 <- subset(epc,Date>"2007-01-31"&Date<"2007-02-03")
+#plot3
+plot(epc2$date.time,epc2$Sub_metering_1,type="l",xlab="",ylab="Energy sub metering")
+lines(epc2$date.time,epc2$Sub_metering_2,col="red")
+lines(epc2$date.time,epc2$Sub_metering_3,col="blue")
+legend("topright",legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),cex=0.7,col=c("black","red","blue"),lty=1)
